@@ -1,6 +1,6 @@
 import os
 import re
-
+import asyncio
 import langchain
 import molbloom
 import paperqa
@@ -16,11 +16,11 @@ from chemcrow.utils import is_multiple_smiles, split_smiles
 
 def paper_scraper(search: str, pdir: str = "query", semantic_scholar_api_key: str = None) -> dict:
     try:
-        return paperscraper.search_papers(
+        return asyncio.run(paperscraper.a_search_papers(
             search,
             pdir=pdir,
             semantic_scholar_api_key=semantic_scholar_api_key,
-        )
+        ))
     except KeyError:
         return {}
 
