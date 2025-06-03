@@ -266,7 +266,7 @@ class RXNRetrosynthesis(RXN4Chem):
         """Describe synthesis."""
         llm = ChatOpenAI(  # type: ignore
             temperature=0.05,
-            model_name="gpt-3.5-turbo-16k",
+            model_name="gpt-4",
             request_timeout=2000,
             max_tokens=2000,
             openai_api_key=self.openai_api_key,
