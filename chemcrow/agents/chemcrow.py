@@ -38,8 +38,8 @@ class ChemCrow:
     def __init__(
         self,
         tools=None,
-        model="gpt-4",
-        tools_model="gpt-4",
+        model="gpt-3.5-turbo",
+        tools_model="gpt-3.5-turbo",
         temp=0.1,
         max_iterations=40,
         verbose=True,

@@ -14,12 +14,16 @@ from pypdf.errors import PdfReadError
 from chemcrow.utils import is_multiple_smiles, split_smiles
 
 
+
 def paper_scraper(search: str, pdir: str = "query", semantic_scholar_api_key: str = None) -> dict:
+    # 如果传入为 None，就从环境变量读取
+    key = semantic_scholar_api_key or os.getenv("SEMANTIC_SCHOLAR_API_KEY")
+
     try:
         return asyncio.run(paperscraper.a_search_papers(
             search,
             pdir=pdir,
-            semantic_scholar_api_key=semantic_scholar_api_key,
+            semantic_scholar_api_key=key,
         ))
     except KeyError:
         return {}
@@ -41,7 +45,8 @@ def paper_search(llm, query, semantic_scholar_api_key=None):
         os.mkdir("query/")
     search = query_chain.run(query)
     print("\nSearch:", search)
-    papers = paper_scraper(search, pdir=f"query/{re.sub(' ', '', search)}", semantic_scholar_api_key=semantic_scholar_api_key)
+    safe_folder = re.sub(r'[<>:"/\\|?*]', '_', search)
+    papers = paper_scraper(search, pdir=f"query/{safe_folder}", semantic_scholar_api_key=semantic_scholar_api_key)
     return papers
 
 
@@ -79,7 +84,7 @@ class Scholar2ResultLLM(BaseTool):
         "knowledge. Ask a specific question."
     )
     llm: BaseLanguageModel = None
-    openai_api_key: str = None 
+    openai_api_key: str = None
     semantic_scholar_api_key: str = None
 
 
