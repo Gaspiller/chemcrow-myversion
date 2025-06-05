@@ -13,7 +13,7 @@ openai.api_key = os.getenv("OPENAI_API_KEY")
 
 # === ChemCrow 任务运行器类 ===
 class ChemCrowTaskRunner:
-    def __init__(self, model_name="gpt-4", temp=0.1):
+    def __init__(self, model_name="gpt-3.5-turbo", temp=0.1):
         self.model_name = model_name
         self.temp = temp
         self.llm = ChatOpenAI(model_name=model_name, temperature=temp)
