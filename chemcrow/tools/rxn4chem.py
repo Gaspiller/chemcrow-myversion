@@ -24,7 +24,7 @@ class RXN4Chem(BaseTool):
     rxn4chem_api_key: Optional[str] = None
     rxn4chem: RXN4ChemistryWrapper = None
     base_url: str = "https://rxn.res.ibm.com"
-    sleep_time: int = 5
+    sleep_time: int = 10
 
     def __init__(self, rxn4chem_api_key):
         """Init object."""
@@ -34,7 +34,7 @@ class RXN4Chem(BaseTool):
         self.rxn4chem = RXN4ChemistryWrapper(
             api_key=self.rxn4chem_api_key, base_url=self.base_url
         )
-        self.rxn4chem.project_id = "655b7b760fb57c001f25dc91"
+        self.rxn4chem.project_id = "6840ac33c41c812d278451bb"
 
     @abc.abstractmethod
     def _run(self, smiles: str):  # type: ignore
