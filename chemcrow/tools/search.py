@@ -16,15 +16,12 @@ from chemcrow.utils import is_multiple_smiles, split_smiles
 
 
 def paper_scraper(search: str, pdir: str = "query", semantic_scholar_api_key: str = None) -> dict:
-    # 如果传入为 None，就从环境变量读取
-    key = semantic_scholar_api_key or os.getenv("SEMANTIC_SCHOLAR_API_KEY")
-
     try:
-        return asyncio.run(paperscraper.a_search_papers(
+        return paperscraper.search_papers(
             search,
             pdir=pdir,
-            semantic_scholar_api_key=key,
-        ))
+            semantic_scholar_api_key=semantic_scholar_api_key,
+        )
     except KeyError:
         return {}
 
